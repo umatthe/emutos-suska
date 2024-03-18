@@ -17,7 +17,7 @@
  * option any later version.  See doc/license.txt for details.
  */
 
-/* #define ENABLE_KDEBUG */
+#define ENABLE_KDEBUG
 
 #include "emutos.h"
 #include "biosext.h"
@@ -210,6 +210,17 @@ extern PFVOID vbl_list[8]; /* Default array for vblqueue */
 
 static void bios_init(void)
 {
+#ifdef UMA
+    mfp_init();
+    chardev_init();     /* Initialize low-memory bios vectors */
+    boot_status |= CHARDEV_AVAILABLE;   /* track progress */
+    init_serport();
+    boot_status |= RS232_AVAILABLE;     /* track progress */
+//    kcprintf(test);
+//    halt();
+    KDEBUG(("init_serport() done\n"));
+#endif //UMA
+
     KDEBUG(("bios_init()\n"));
 
     /* initialize Native Features, if available
@@ -231,7 +242,9 @@ static void bios_init(void)
     /* Initialize the processor */
     KDEBUG(("processor_init()\n"));
     processor_init();   /* Set CPU type, longframe and FPU type */
-
+#ifdef UMA
+    KDEBUG(("processor_init() done type: %ld subtype: %d\n",mcpu,mcpu_subtype));
+#endif
 #if CONF_WITH_ADVANCED_CPU
     is_bus32 = (UBYTE)detect_32bit_address_bus();
 #endif
@@ -281,6 +294,7 @@ static void bios_init(void)
     font_init();        /* initialize font ring (requires cookie_akp) */
 
 #if CONF_WITH_BLITTER
+#if !SUSKA //UMA
     /*
      * If a PAK 68/3 is installed, the blitter cannot access the PAK ROMs.
      * So we must mark the blitter as not installed (this is what the
@@ -290,6 +304,7 @@ static void bios_init(void)
     if ((mcpu == 30)
      && ((cookie_mch == MCH_ST) || (cookie_mch == MCH_STE) || (cookie_mch == MCH_MSTE)))
         has_blitter = 0;
+#endif
 #endif
 
     /*

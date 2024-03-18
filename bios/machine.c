@@ -10,7 +10,7 @@
  * option any later version.  See doc/license.txt for details.
  */
 
-/* #define ENABLE_KDEBUG */
+#define ENABLE_KDEBUG
 
 #include "emutos.h"
 #include "cookie.h"
@@ -312,7 +312,7 @@ static void detect_blitter(void)
      * FireBee, which by design supports 32-bit blitting.
      */
 #ifndef MACHINE_FIREBEE
-    if (!ramtop)
+//UMA    if (!ramtop)
 #endif
         if (check_read_byte(BLITTER_CONFIG1))
             has_blitter = 1;
@@ -599,7 +599,7 @@ void machine_detect(void)
 #endif
 
     detected_busses = check_busses();
-    KDEBUG(("detected_busses = 0x%04x\n", detected_busses));
+    KDEBUG(("detected_busses = 0x%04lx\n", detected_busses));
 
 #if CONF_WITH_MONSTER
     detect_monster();

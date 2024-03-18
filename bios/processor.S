@@ -25,6 +25,7 @@
         .globl  _flush_data_cache
         .globl  _invalidate_data_cache
         .globl  _mcpu
+        .globl  _mcpu_subtype
         .globl  _fputype
 #if CONF_WITH_APOLLO_68080
         .globl  _is_apollo_68080
@@ -61,6 +62,7 @@
  */
 
 _detect_cpu:
+
 #if CONF_WITH_ADVANCED_CPU
         movem.l  d2/a2-a3,-(sp)
 
@@ -261,6 +263,7 @@ _processor_init:
         move.w  #1,_longframe.w // this is a 68010 or later
 m68000:
         jbsr    _detect_fpu
+// move.l #0,d0 //UMA
         move.l  d0,_fputype
 
         cmpi.b  #20,_mcpu+3

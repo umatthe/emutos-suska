@@ -933,7 +933,12 @@ static void init_bconmap(void)
         memcpy(&maptable[i],&maptable_dummy,sizeof(MAPTAB));
     bconmap_root.maptab = maptable;
     bconmap_root.maptabsize = 1;
+#ifndef UMA
     bconmap_root.mapped_device = (cookie_mch==MCH_FALCON || IS_ARANYM) ? 7 : 6;
+#else
+    bconmap_root.mapped_device = 6; //MFP
+//    bconmap_root.mapped_device = 7; //SCC
+#endif
 
     /*
      * initialise the BCONMAP structure according to machine type first
