@@ -1,0 +1,33 @@
+ln -sf localconf.h.etos localconf.h
+make clean
+make prg  UNIQUE=de
+cp emutos.prg ~/etosetos.prg
+make clean
+make 512 UNIQUE=de
+cp etos512de.img ../suska/Operating-System/tos/etosetos.img
+
+ln -sf localconf.h.cur localconf.h
+make clean
+make prg  UNIQUE=de
+cp emutos.prg ~/etoscur.prg
+make clean
+make 512 UNIQUE=de
+cp etos512de.img ../suska/Operating-System/tos/etoscurr.img
+
+ln -sf localconf.h.dbg localconf.h
+make clean
+make prg  UNIQUE=de
+cp emutos.prg ~/etosdbg.prg
+make clean
+make 512 UNIQUE=de
+cp etos512de.img ../suska/Operating-System/tos/etosdebug.img
+
+ln -sf localconf.h.cli localconf.h
+make clean
+make prg  UNIQUE=de
+cp emutos.prg ~/etoscli.prg
+make clean
+make 512 UNIQUE=de
+cp etos512de.img ../suska/Operating-System/tos/etoscli.img
+make dsm
+cp dsm.txt ../suska/Operating-System/tos/etoscli.txt

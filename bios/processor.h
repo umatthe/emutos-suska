@@ -29,6 +29,10 @@
  *      . in Pexec() when a program is loaded.
  * 2. Instruction cache is enabled (by the preboot).  It is flushed/
  *    invalidated in Pexec() after a program is loaded.
+ * 3. The processor speed must be defined in SDCLK_FREQUENCY_MHZ.  This
+ *    is used to derive a value that is used for timing short delays via
+ *    a small instruction-looping routine.  See delay.c.
+ *
  *
  * Non-ColdFire processors
  * =======================
@@ -90,6 +94,7 @@ void processor_init(void);
  */
 void instruction_cache_kludge(void *start,long size);
 extern ULONG mcpu;
+extern WORD mcpu_subtype;
 extern ULONG fputype;
 extern WORD longframe;
 

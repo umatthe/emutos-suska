@@ -138,7 +138,7 @@ static const struct pmmutable mmutable_rom =
       PMMU_SF_PAGE(0x00a00000),
       PMMU_SF_PAGE(0x00b00000),
       PMMU_SF_PAGE(0x00c00000),
-      PMMU_SF_PAGE(0x00d00000),
+      PMMU_SF_PAGE(0x00d00000), /*UMA 0x00e00000 to mirror TOS */
       PMMU_SF_PAGE(0x00e00000),
       PMMU_SF_PAGE_CI(0x00f00000)   /* map 0x??f00000-0x??ffffff (?? = 00 or ff) to */
                                     /*   0x00f00000-0x00ffffff, DON'T allow caching */

@@ -1,0 +1,21 @@
+#define SUSKA 1
+#define UMA 1
+
+#define CONF_SERIAL_CONSOLE 1
+#define RS232_DEBUG_PRINT 1
+#define SCC_DEBUG_PRINT 0
+
+#define ALWAYS_SHOW_INITINFO 1
+# define INITINFO_DURATION 5
+#undef WITH_AES
+#define WITH_AES 0
+#define CONF_WITH_SCC 0
+#define CONF_WITH_TT_MFP 0
+#define CONF_WITH_DSP 0
+#define CONF_WITH_SCSI 0
+#define CONF_WITH_BLITTER 1
+#define CONF_WITH_NVRAM 0
+
+#define CONF_WITH_SDMMC 1
+#define CONF_WITH_STEJOY_SPI 1
+#define CONF_WITH_LPT_SPI 0
