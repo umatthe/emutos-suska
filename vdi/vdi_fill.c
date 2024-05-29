@@ -19,6 +19,7 @@
 #include "vdistub.h"
 #include "tosvars.h"
 #include "lineavars.h"
+#include "vdi_inline.h"
 
 
 /* special values used in y member of SEGMENT */
@@ -657,19 +658,30 @@ get_color (UWORD mask, UWORD * addr)
 
 
 /*
- * pixelread - gets a pixel's color index value
+ * pixelread - gets a pixel's colour
+ *
+ * For palette-based resolutions, this returns the colour index; for
+ * Truecolor resolutions, this returns the 16-bit RGB colour.
  *
  * input:
  *     PTSIN(0) = x coordinate.
  *     PTSIN(1) = y coordinate.
  * output:
- *     pixel value
+ *     pixel colour
  */
 static UWORD
 pixelread(const WORD x, const WORD y)
 {
     UWORD *addr;
     UWORD mask;
+
+#if CONF_WITH_VDI_16BIT
+    if (TRUECOLOR_MODE)
+    {
+        addr = get_start_addr16(x, y);
+        return *addr;                   /* just return the data at the address */
+    }
+#endif
 
     /* convert x,y to start address and bit mask */
     addr = get_start_addr(x, y);
@@ -1007,6 +1019,15 @@ void vdi_v_get_pixel(Vwk * vwk)
     /* Get the requested pixel */
     pel = (WORD)pixelread(x,y);
 
+#if CONF_WITH_VDI_16BIT
+    if (TRUECOLOR_MODE)
+    {
+        INTOUT[0] = 0;
+        INTOUT[1] = pel;
+        return;
+    }
+#endif
+
     INTOUT[0] = pel;
     INTOUT[1] = REV_MAP_COL[pel];
 }
@@ -1034,6 +1055,18 @@ get_pix(void)
 /*
  * put_pix - plot a pixel (just for line-A)
  *
+ * NOTE: this does not work for Truecolor modes in TOS4 due to a bug.
+ * Register a4 is used to reference the lineA pointer table, but has
+ * never been set; the code should be using a1 instead.  So we can
+ * safely assume that no existing program is expecting this to work.
+ *
+ * However, because EmuTOS aims to be better than TOS, a functioning
+ * Truecolor mode has been implemented.  The EmuTOS Truecolor code
+ * is based on what TOS4 apparently intends to do, i.e. just stores
+ * the word passed in INTIN[0] as-is.  This also meshes with the
+ * operation of linea2 in TOS4 Truecolor modes, which just retrieves
+ * the word at the specified address.
+ *
  * input:
  *     INTIN(0) = pixel value.
  *     PTSIN(0) = x coordinate.
@@ -1049,6 +1082,20 @@ put_pix(void)
 
     const WORD x = PTSIN[0];
     const WORD y = PTSIN[1];
+
+#if CONF_WITH_VDI_16BIT
+    if (TRUECOLOR_MODE)
+    {
+        /*
+         * convert x,y to start address & validate
+         */
+        addr = get_start_addr16(x, y);
+        if (addr < (UWORD*)v_bas_ad || addr >= get_start_addr(V_REZ_HZ, V_REZ_VT))
+            return;
+        *addr = INTIN[0];   /* store 16-bit Truecolor value */
+        return;
+    }
+#endif
 
     /* convert x,y to start address */
     addr = get_start_addr(x, y);
