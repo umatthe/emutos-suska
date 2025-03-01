@@ -584,6 +584,7 @@ void machine_detect(void)
 #endif /* CONF_WITH_ICDRTC */
 #if CONF_WITH_NVRAM
     detect_nvram();
+    KDEBUG(("has_nvram = %d\n", has_nvram));
 #endif
 #if CONF_WITH_DMASOUND
     detect_dmasound();

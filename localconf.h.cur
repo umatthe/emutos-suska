@@ -12,7 +12,7 @@
 #undef WITH_AES
 #define WITH_AES 1
 
-#define CONF_WITH_SCC 0
+#define CONF_WITH_SCC 1
 #define CONF_WITH_TT_MFP 0
 #define CONF_WITH_DSP 0
 #define CONF_WITH_SCSI 0
@@ -23,7 +23,7 @@
 #define CONF_WITH_LPT_SPI 0
 
 #define CONF_WITH_SCSI_DRIVER 1
-#define CONF_WITH_NVRAM 0
+#define CONF_WITH_NVRAM 1
 /*
 #define CONF_TTRAM_SIZE 0x03000000
 #define CONF_TTRAM_SIZE 0x00F00000
