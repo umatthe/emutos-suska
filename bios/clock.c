@@ -13,7 +13,7 @@
  * option any later version.  See doc/license.txt for details.
  */
 
-/* #define ENABLE_KDEBUG */
+#define ENABLE_KDEBUG
 
 #include "emutos.h"
 #include "clock.h"
@@ -868,7 +868,10 @@ static WORD nvram_getregs(struct clkreg *clk)
     WORD old_sr;
 
     if ((get_nvram_rtc(NVRAM_RTC_REG_D) & 0x80) == 0)   /* VRT==0 => invalid date/time */
+    {
+        KDEBUG(("UMA: invalid date/time\n"));
         return -1;
+    }
 
     old_sr = set_sr(0x2700);                        /* prevent interrupts */
 

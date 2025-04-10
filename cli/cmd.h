@@ -191,6 +191,7 @@ typedef LONG FUNC(WORD argc,char **argv);
 #define cursor_left()   escape('D')
 #define cursor_right()  escape('C')
 #define enable_cursor() escape('e')
+/* CONSOLE=2 MFP=6 SCC=7 */
 #define conin()         Bconin(2)
 #define constat()       Bconstat(2)
 #define conout(c)       Bconout(2,(unsigned char)(c))

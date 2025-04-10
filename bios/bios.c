@@ -211,7 +211,9 @@ extern PFVOID vbl_list[8]; /* Default array for vblqueue */
 static void bios_init(void)
 {
 #ifdef UMA
+#if CONF_WITH_MFP
     mfp_init();
+#endif
     chardev_init();     /* Initialize low-memory bios vectors */
     boot_status |= CHARDEV_AVAILABLE;   /* track progress */
     init_serport();
@@ -313,8 +315,10 @@ static void bios_init(void)
      */
 
 #if CONF_WITH_MFP
+#if !UMA
     KDEBUG(("mfp_init()\n"));
     mfp_init();
+#endif
 #endif
 
 #if CONF_WITH_TT_MFP
@@ -412,10 +416,12 @@ static void bios_init(void)
     set_sr(0x2000);
 #endif
 
+#if !UMA
     /* Initialize the RS-232 port(s) */
     KDEBUG(("chardev_init()\n"));
     chardev_init();     /* Initialize low-memory bios vectors */
     boot_status |= CHARDEV_AVAILABLE;   /* track progress */
+#endif
     KDEBUG(("init_serport()\n"));
     init_serport();
     boot_status |= RS232_AVAILABLE;     /* track progress */
