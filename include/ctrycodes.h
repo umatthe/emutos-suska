@@ -1,7 +1,7 @@
 /*
  * ctrycodes.h - a mere list of country codes
  *
- * Copyright (C) 2003-2024 The EmuTOS development team
+ * Copyright (C) 2003-2025 The EmuTOS development team
  *
  * Authors:
  *  LVL     Laurent Vogel
@@ -44,7 +44,7 @@
  * https://freemint.github.io/tos.hyp/en/bios_cookiejar.html#Cookie_2C_20_AKP
  * Note that those codes are also used in FreeMiNT/XaAES and must match:
  * https://github.com/freemint/freemint/blob/master/sys/keyboard.c#L93
- * https://github.com/freemint/freemint/blob/master/xaaes/src.km/init.c#L164
+ * https://github.com/freemint/freemint/blob/master/xaaes/src.km/init.c#L167
  */
 #define COUNTRY_PL 17   /* Poland */
 #define COUNTRY_RU 19   /* Russia */

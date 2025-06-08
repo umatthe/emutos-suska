@@ -6,7 +6,7 @@
  * Defines that should *not* be overridden should appear in sysconf.h
  * (or deskconf.h if they apply to EmuDesk).
  *
- * Copyright (C) 2001-2024 The EmuTOS development team
+ * Copyright (C) 2001-2025 The EmuTOS development team
  *
  * Authors:
  *  MAD     Martin Doering
@@ -1988,6 +1988,10 @@
  * address space 0xFB0xxx, which is decoded to the /ROM3 signal.
  * This has the advantage of being always available since it does not
  * require initialization of a peripheral.
+ * Output can be decoded by connecting a logic analyzer to A8-A1,
+ * triggering on /ROM3, or by using a special firmware for the
+ * SidecarTridge Multi-device hardware:
+ * https://github.com/czietz/atari-debug-cart
  */
 #ifndef CARTRIDGE_DEBUG_PRINT
 # define CARTRIDGE_DEBUG_PRINT 0
