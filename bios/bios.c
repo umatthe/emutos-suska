@@ -315,7 +315,7 @@ static void bios_init(void)
      */
 
 #if CONF_WITH_MFP
-#if !UMA
+#ifndef UMA
     KDEBUG(("mfp_init()\n"));
     mfp_init();
 #endif
@@ -416,7 +416,7 @@ static void bios_init(void)
     set_sr(0x2000);
 #endif
 
-#if !UMA
+#ifndef UMA
 #if defined(MACHINE_ARANYM) || defined(TARGET_1024)
     /* ARAnyM 1.1.0 loads only the first half of 1024k ROMs.
      * Detect this situation and warn the user.
@@ -441,7 +441,6 @@ static void bios_init(void)
 #endif
         }
     }
-#endif
 #endif
 
     /* Initialize the RS-232 port(s) */
