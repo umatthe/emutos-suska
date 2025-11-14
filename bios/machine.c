@@ -312,7 +312,9 @@ static void detect_blitter(void)
      * FireBee, which by design supports 32-bit blitting.
      */
 #ifndef MACHINE_FIREBEE
-//UMA    if (!ramtop)
+#ifndef SUSKA
+        if (!ramtop)
+#endif
 #endif
         if (check_read_byte(BLITTER_CONFIG1))
             has_blitter = 1;

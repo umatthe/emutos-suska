@@ -17,4 +17,7 @@ void set_dma_addr(UBYTE *addr)
     DMA->addr_low = b[3];
     DMA->addr_med = b[2];
     DMA->addr_high = b[1];
+#ifdef SUSKA
+    DMA->addr_ext  = b[0];
+#endif
 }

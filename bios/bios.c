@@ -296,7 +296,7 @@ static void bios_init(void)
     font_init();        /* initialize font ring (requires cookie_akp) */
 
 #if CONF_WITH_BLITTER
-#if !SUSKA //UMA
+#if !SUSKA
     /*
      * If a PAK 68/3 is installed, the blitter cannot access the PAK ROMs.
      * So we must mark the blitter as not installed (this is what the
