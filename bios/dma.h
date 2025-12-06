@@ -19,11 +19,7 @@ struct dma {
     UWORD   pad0[2];
      WORD   data;       /* sector count, data register */
      WORD   control;    /* status/control register */
-#ifndef SUSKA
-    UBYTE   pad1;
-#else
-    UBYTE   addr_ext;
-#endif
+    UBYTE   addr_ext;   /* Only Suska Falcon pad1 for other systems */
     UBYTE   addr_high;
     UBYTE   pad2;
     UBYTE   addr_med;

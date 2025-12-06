@@ -149,7 +149,7 @@ LONG acsi_rw(WORD rw, LONG sector, WORD count, UBYTE *buf, WORD dev)
 #ifndef SUSKA
     if (IS_ODD_POINTER(buf) || !IS_STRAM_POINTER(buf)) {
 #else
-    if (IS_ODD_POINTER(buf)) {
+    if (IS_ODD_POINTER(buf) && (cookie_mch == MCH_FALCON)){
 #endif
 #if CONF_WITH_FRB
         tmp_buf = get_frb_cookie();

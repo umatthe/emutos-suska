@@ -8,6 +8,10 @@
  */
 
 #include "emutos.h"
+#ifdef SUSKA
+#include "machine.h"
+#include "cookie.h"
+#endif
 #include "dma.h"
 
 void set_dma_addr(UBYTE *addr)
@@ -18,6 +22,6 @@ void set_dma_addr(UBYTE *addr)
     DMA->addr_med = b[2];
     DMA->addr_high = b[1];
 #ifdef SUSKA
-    DMA->addr_ext  = b[0];
+    if ((cookie_mch == MCH_FALCON)) DMA->addr_ext  = b[0];
 #endif
 }
