@@ -430,7 +430,8 @@ static WORD determine_width(WORD mode)
 
     linewidth = (mode&VIDEL_80COL) ? 40 : 20;
 #ifdef FALCON_800
-    linewidth = 50; /*UMA*/
+    if (!(mode&VIDEL_COMPAT))
+       linewidth = 50; /*UMA*/
 #endif
     linewidth <<= (mode & VIDEL_BPPMASK);
     /* overscan is ignored if VGA is set */
